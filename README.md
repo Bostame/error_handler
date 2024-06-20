@@ -1,5 +1,3 @@
-Here's a `README.md` file for your project:
-
 ```markdown
 # Uptime Kuma to WordPress Webhook Handler
 
@@ -85,4 +83,3 @@ This project handles webhook POST requests from Uptime Kuma to a WordPress websi
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
