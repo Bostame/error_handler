@@ -1,4 +1,3 @@
-```markdown
 # Uptime Kuma to WordPress Webhook Handler
 
 This project handles webhook POST requests from Uptime Kuma to a WordPress website. When an error is triggered in Uptime Kuma, a POST request with a JSON payload is sent to a PHP file on the WordPress server. This script processes the request, verifies a hashed token, clears caches, and logs the action.
