@@ -28,6 +28,23 @@ function verify_token($hashedToken) {
     return hash_equals($config['secret_token'], $hashedToken);
 }
 
+// Function to clear used CSS and cache
+function clear_used_css_and_cache() {
+    if (function_exists('is_rucss_enabled') && is_rucss_enabled()) {
+        if (function_exists('rocket_clean_domain')) {
+            $container = apply_filters('rocket_container', null);
+            $rucss_subscriber = $container->get('rucss_admin_subscriber');
+            if ($rucss_subscriber) {
+                $rucss_subscriber->truncate_used_css(); // Clear the used CSS.
+            }
+            rocket_clean_domain(); // Clear the cache.
+            if (function_exists('preload_cache')) {
+                preload_cache(); // Preload the cache.
+            }
+        }
+    }
+}
+
 // Function to clear caches and log the action
 function clear_caches_and_log() {
     $messages = [];
@@ -52,6 +69,14 @@ function clear_caches_and_log() {
         $messages[] = 'Object Cache Pro cache cleared successfully.';
     } else {
         $messages[] = 'Object Cache Pro cache function not found.';
+    }
+
+    // Clear Used CSS
+    if (function_exists('clear_used_css_and_cache')) {
+        clear_used_css_and_cache();
+        $messages[] = 'Used CSS cleared and cache preloaded successfully.';
+    } else {
+        $messages[] = 'Used CSS clear function not found.';
     }
 
     // Log the date and time of the action
